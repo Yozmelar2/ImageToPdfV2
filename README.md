@@ -1,5 +1,8 @@
 # image-2-pdf
 
+>> Convert Images to Pdf
+>> Convert Url to Pdf 
+
 
 ## Configs
 
@@ -8,6 +11,10 @@
 * API_ID     - From my.telegram.org 
 
 * API_HASH    - From my.telegram.org
+
+* UPDATE _CHANNEL  - Channel Username for Force Subscribe
+
+* LOG_CHANNEL  - Channel/Group ID for dumb bot datas
 
 
 ### Deploy to Heroku
