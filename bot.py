@@ -34,7 +34,7 @@ app = Client(
 
 LIST = {}
 
-os.environ['TZ'] = "Kolkata"
+#os.environ['TZ'] = "Kolkata"
 
 currentTime = datetime.datetime.now()
 
