@@ -28,3 +28,7 @@
    <p> Telegram </p>
   </a>
 
+## Thanks to:
+
+* Everyone in this journey 
+
