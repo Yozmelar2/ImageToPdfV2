@@ -1,4 +1,7 @@
-# image-2-pdf
+# ImageToPDF
+
+![GitHub](https://img.shields.io/github/license/AswanthVK/ImageToPDFV2?label=license)
+![GitHub](https://img.shields.io/badge/Version-Beta-green)
 
 > Convert Images to Pdf
 
@@ -9,15 +12,15 @@
 
 ## Configs
 
-* TOKEN  - Get bot token from @BotFather
+* `TOKEN`  - Get bot token from @BotFather
 
-* API_ID     - From my.telegram.org 
+* `API_ID`     - From my.telegram.org 
 
-* API_HASH    - From my.telegram.org
+* `API_HASH`    - From my.telegram.org
 
-* UPDATE _CHANNEL  - Channel Username for Force Subscribe
+* `UPDATE _CHANNEL`  - Channel Username for Force Subscribe
 
-* LOG_CHANNEL  - Channel/Group ID for dumb bot datas
+* `LOG_CHANNEL`  - Channel/Group ID for dumb bot datas
 
 
 ### Deploy to Heroku
