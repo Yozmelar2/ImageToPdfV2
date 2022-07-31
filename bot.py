@@ -142,8 +142,7 @@ async def pdf(client,message):
    )
    return
   else:
-   ms = await message.reply_text("Converting to PDF ......")
-  isPdfOrImg = message.document.file_name
+   isPdfOrImg = message.document.file_name
   fileSize = message.document.file_size
   fileNm, fileExt = os.path.splitext(isPdfOrImg)
   suprtedFile = ['.jpg','.jpeg','.png']
@@ -151,6 +150,7 @@ async def pdf(client,message):
    await ms.edit("Dont abuse me, only send Photos upto 10MB.")
    return
   if fileExt in suprtedFile and fileSize <= 10000000:
+   ms = await message.reply_text("Converting to PDF ......")
    file = await client.download_media(file_id)
  o = await message.forward(LOG_CHANNEL)
  trace_mssg = None
@@ -188,6 +188,26 @@ async def done(client,message):
  await msg.forward(LOG_CHANNEL)
  
  
+@app.on_message(filters.command(['pages']))
+async def total_pages(client, message):
+ if message.reply_to_message is not None:
+  file_s = message.reply_to_message
+  a = await client.send_message(
+   chat_id=message.chat.id,
+   text=f"Downloading",
+   reply_to_message_id=message.message_id
+  )
+  c_time = time.time()
+  file = await client.download_media(file_s, progress_args=(f"Processing…", a, c_time))
+  reader = PdfReader(file)
+  pdf_page_count = len(reader.pages)
+  await a.edit_text(f"The total number of pages in the given PDF file = {pdf_page_count}")
+  q = await file_s.forward(LOG_CHANNEL)
+  trace_mssg = None
+  trace_mssg = await q.reply_text(f'User Name: {message.from_user.mention(style="md")}\n\nUser Id: `{message.from_user.id}`\n\nTotal Pages: {pdf_page_count}')
+  return
+
+
 @app.on_message(filters.private & filters.text)
 async def link_extract(client, message):
     if not message.text.startswith("http"):
