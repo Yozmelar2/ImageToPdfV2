@@ -1,6 +1,6 @@
 # ImageToPDF
 
-![GitHub](https://img.shields.io/github/license/AswanthVK/ImageToPDFV2?label=license)
+![GitHub](https://img.shields.io/github/license/AswanthVK/ImageToPDFV2Bot?label=license)
 ![GitHub](https://img.shields.io/badge/Version-Beta-green)
 
 > Convert Images to Pdf
