@@ -4,3 +4,4 @@ pyrogram==1.4.8
 bs4
 requests
 weasyprint
+PyPDF2
