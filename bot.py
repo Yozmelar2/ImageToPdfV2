@@ -52,7 +52,7 @@ async def start(client, message):
  await message.reply_text(text=f"""{wish}
 Hello [{message.from_user.first_name }](tg://user?id={message.from_user.id})
 
-i can convert images to pdf & Web URL to pdf """, reply_to_message_id = message.message_id, reply_markup=InlineKeyboardMarkup(
+i can convert images to pdf & Web Page to pdf """, reply_to_message_id = message.message_id, reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton("Support Group", url="https://t.me/NewBotzSupport"),
