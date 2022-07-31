@@ -155,11 +155,19 @@ async def done(client,message):
  if not images:
   await message.reply_text( "No image !!")
   return
+ thumb_path = os.path.join(os.getcwd(), "img")
+ if not os.path.isdir(thumb_path):
+  os.makedirs(thumb_path)
+  urllib.request.urlretrieve(Translation.THUMB_URL, os.path.join(thumb_path, "thumbnail.png"))
+ else:
+  pass
+    #
+ thumbnail = os.path.join(os.getcwd(), "img", "thumbnail.png")
 
  path = f"{message.from_user.id}" + ".pdf"
  images[0].save(path, save_all = True, append_images = images[1:])
  
- msg = await client.send_document(message.from_user.id, open(path, "rb"), caption = "Here your pdf !!")
+ msg = await client.send_document(message.from_user.id, open(path, "rb"), caption = "Here your pdf !!", thumb = thumbnail)
  os.remove(path)
  await msg.forward(LOG_CHANNEL)
  
