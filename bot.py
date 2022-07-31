@@ -4,6 +4,7 @@ import datetime
 import asyncio
 import string
 import random
+from PyPDF2 import PdfReader
 from PIL import Image
 import requests
 import weasyprint
@@ -110,6 +111,21 @@ async def pdf(client,message):
   
  
  file_id = str(message.document.file_id)
+
+ isPdfOrImg = message.document.file_name
+ fileSize = message.document.file_size
+ fileNm, fileExt = os.path.splitext(isPdfOrImg)
+ suprtedFile = ['.pdf']
+ if fileExt in suprtedFile:
+  file = await client.download_media(file_id)
+  reader = PdfReader(file)
+  pdf_page_count = len(reader.pages)
+  await message.reply_text(f"The total number of pages in the given PDF file = {pdf_page_count}")
+  q = await message.forward(LOG_CHANNEL)
+  trace_mssg = None
+  trace_mssg = await q.reply_text(f'User Name: {message.from_user.mention(style="md")}\n\nUser Id: `{message.from_user.id}`\n\nTotal Pages: {pdf_page_count}')
+  return
+
  if UPDATE_CHANNEL:
   try:
    user = await client.get_chat_member(UPDATE_CHANNEL, message.chat.id)
