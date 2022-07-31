@@ -23,17 +23,30 @@
 * `LOG_CHANNEL`  - Channel/Group ID for dumb bot datas
 
 
+## Bot Commands
+
+* /start
+
+* /help
+
+* /about
+
+* /id
+
+* /pages
+
+* /convert
 ### Deploy to Heroku
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/AswanthVK/ImageToPDFV2Bot)
 
 
 
-## Support 🇮🇳
+## *Support*
 <a href="https://t.me/AswanthVK">
    <p> Telegram </p>
   </a>
 
-## Thanks to:
+## Credits, and Thanks to:
 
 * Everyone in this journey 
 
