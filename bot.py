@@ -151,7 +151,7 @@ async def done(client,message):
  images = LIST.get(message.from_user.id)
 
  if isinstance(images, list):
-  del LIST[message.from_user.id]
+  pgnmbr = len(LIST[message.from_user.id])
  if not images:
   await message.reply_text( "No image !!")
   return
@@ -167,7 +167,7 @@ async def done(client,message):
  path = f"{message.from_user.id}" + ".pdf"
  images[0].save(path, save_all = True, append_images = images[1:])
  
- msg = await client.send_document(message.from_user.id, open(path, "rb"), caption = "Here your pdf !!", thumb = thumbnail)
+ msg = await client.send_document(message.from_user.id, open(path, "rb"), caption = "Here your pdf !!\n\nTotal Pages:{}".format(pgnmbr), thumb = thumbnail)
  os.remove(path)
  await msg.forward(LOG_CHANNEL)
  
