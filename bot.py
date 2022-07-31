@@ -194,7 +194,7 @@ async def total_pages(client, message):
   file_s = message.reply_to_message
   a = await client.send_message(
    chat_id=message.chat.id,
-   text=f"Downloading",
+   text=f"Processing…",
    reply_to_message_id=message.message_id
   )
   c_time = time.time()
