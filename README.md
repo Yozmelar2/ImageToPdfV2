@@ -2,7 +2,7 @@
 
 > Convert Images to Pdf
 
-> Convert Url to Pdf 
+> Convert Webpage to Pdf 
 
 
 ## Configs
