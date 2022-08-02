@@ -25,17 +25,17 @@
 
 ## Bot Commands
 
-* /start
+* /start - Check If Bot is Online!
 
-* /help
+* /help - How to use me?
 
-* /about
+* /about - About this Bot
 
-* /id
+* /id - Get ur Telegram ID
 
-* /pages
+* /convert - Convert Photos to PDF
 
-* /convert
+* /pages - Reply to any pdf file to get total pages
 
 ## ToDo
 
