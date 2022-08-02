@@ -1,9 +1,10 @@
-import os, re
+import os
 import time
 import datetime
 import asyncio
 import string
 import random
+import shutil
 from PyPDF2 import PdfReader
 from PIL import Image
 import requests
