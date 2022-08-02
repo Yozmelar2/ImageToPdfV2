@@ -179,7 +179,7 @@ async def done(client,message):
  if isinstance(images, list):
   pgnmbr = len(LIST[message.from_user.id])
  if not images:
-  await message.reply_text( "No image !!")
+  await abcd.edit( "No image !!")
   return
  thumb_path = os.path.join(os.getcwd(), "img")
  if not os.path.isdir(thumb_path):
