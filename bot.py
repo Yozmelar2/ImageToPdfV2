@@ -148,9 +148,32 @@ async def pdf(client,message):
  await ms.edit(f"{len(LIST[message.from_user.id])} image   Successful created PDF if you want add more image Send me One by one\n\n **if done click here 👉 /convert** ")
  
 
+@app.on_message(filters.command(['cancel']))
+async def cancel(client, message):
+ images = LIST.get(message.from_user.id)
+ if not images:          
+   await client.send_message(message.chat.id, f"Nothing to Cancel", reply_to_message_id=message.message_id)
+   return
+ await client.send_message(
+   chat_id=message.chat.id,
+   text=f"Cancelled your process",
+   reply_to_message_id=message.message_id
+ )
+ del LIST[message.from_user.id]
+ shutil.rmtree(f"{message.chat.id}")
+
+
 @app.on_message(filters.command(['convert']))
 async def done(client,message):
  images = LIST.get(message.from_user.id)
+ abcd = await message.reply_text( "Uploading your PDF")
+ mt = message.text
+ if (" " in message.text):
+  cmd, file_name = message.text.split(" ", 1)
+ if file_name.endswith(".pdf"):
+  filename = file_name.split(".")[0]
+ else:
+  filename = file_name
 
  if isinstance(images, list):
   pgnmbr = len(LIST[message.from_user.id])
@@ -165,17 +188,28 @@ async def done(client,message):
   pass
     #
  thumbnail = os.path.join(os.getcwd(), "img", "thumbnail.png")
+ path0 = f"{message.from_user.id}" + ".pdf"
+ 
+ if filename in mt:
+  path = f"{filename}" + ".pdf"
+ else:
+  path = path0
 
- path = f"{message.from_user.id}" + ".pdf"
+ #path = f"{message.from_user.id}" + ".pdf"
  images[0].save(path, save_all = True, append_images = images[1:])
  
  msg = await client.send_document(message.from_user.id, open(path, "rb"), caption = "Here your pdf !!\n\nTotal Pages:{}".format(pgnmbr), thumb = thumbnail)
  os.remove(path)
+ await abcd.delete()
  await msg.forward(LOG_CHANNEL)
  
  
 @app.on_message(filters.command(['pages']))
 async def total_pages(client, message):
+ if message.chat.id not in LIST:          
+  await client.send_message(message.chat.id, f"Send me a pdf first 😅", reply_to_message_id=message.message_id)
+  return
+
  if message.reply_to_message is not None:
   file_s = message.reply_to_message
   a = await client.send_message(
@@ -191,7 +225,8 @@ async def total_pages(client, message):
   q = await file_s.forward(LOG_CHANNEL)
   trace_mssg = None
   trace_mssg = await q.reply_text(f'User Name: {message.from_user.mention(style="md")}\n\nUser Id: `{message.from_user.id}`\n\nTotal Pages: {pdf_page_count}')
-  return
+  
+  os.remove(file)
 
 
 @app.on_message(filters.private & filters.text)
