@@ -171,10 +171,10 @@ async def done(client,message):
  mt = message.text
  if (" " in message.text):
   cmd, file_name = message.text.split(" ", 1)
- if file_name.endswith(".pdf"):
-  filename = file_name.split(".")[0]
- else:
-  filename = file_name
+ #if file_name.endswith(".pdf"):
+  #filename = file_name.split(".")[0]
+ #else:
+  #filename = file_name
 
  if isinstance(images, list):
   pgnmbr = len(LIST[message.from_user.id])
@@ -191,7 +191,7 @@ async def done(client,message):
  thumbnail = os.path.join(os.getcwd(), "img", "thumbnail.png")
  path0 = f"{message.from_user.id}" + ".pdf"
  
- if filename in mt:
+ if file_name in mt:
   path = f"{filename}" + ".pdf"
  else:
   path = path0
