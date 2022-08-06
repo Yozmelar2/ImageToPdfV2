@@ -7,7 +7,8 @@ import string
 import random
 import shutil
 import pytz
-from PyPDF2 import PdfReader
+from PyPDF2 import PdfReader, PdfFileReader
+from gtts import gTTS
 from PIL import Image
 import requests
 import weasyprint
@@ -232,6 +233,33 @@ async def total_pages(client, message):
   trace_mssg = await q.reply_text(f'User Name: {message.from_user.mention(style="md")}\n\nUser Id: `{message.from_user.id}`\n\nTotal Pages: {pdf_page_count}')
   
   os.remove(file)
+
+
+@app.on_message(filters.command(['text']))
+async def total_pages(client, message):
+ if message.chat.id not in LIST:          
+  await client.send_message(message.chat.id, f"Send me a pdf first 😅", reply_to_message_id=message.message_id)
+  return
+
+ if message.reply_to_message is not None:
+  file_s = message.reply_to_message
+  a = await client.send_message(
+   chat_id=message.chat.id,
+   text=f"Processing…",
+   reply_to_message_id=message.message_id
+  )
+  c_time = time.time()
+  file = await client.download_media(file_s, progress_args=(f"Processing…", a, c_time))
+  pdfreader = PyPDF2.PdfFileReader(file)
+  page = pdfreader.getPage(0)
+  #extractig the text
+  text = page.extractText()
+  mytext = text
+  language = 'en'
+  myfile = gTTS(text=mytext, lang=language, slow=False)
+  path = f"{message.from_user.id}" + ".mp3"
+  myfile.save(path)
+  mssg = await client.send_document(message.from_user.id, open(path, "rb"), caption = "Here your mp3"thumb = thumbnail)
 
 
 @app.on_message(filters.private & filters.text)
