@@ -40,7 +40,8 @@ LIST = {}
 tz = pytz.timezone('Asia/Kolkata')
 
 #currentTime = datetime.datetime.now()
-currentTime = tz.datetime.now()
+ct = tz.datetime
+currentTime = ct.now()
 
 if currentTime.hour < 12:
 	wish = "Good morning"
