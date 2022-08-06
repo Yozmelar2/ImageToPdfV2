@@ -1,6 +1,7 @@
 import os
 import time
 import datetime
+from datetime import datetime
 import asyncio
 import string
 import random
@@ -37,11 +38,10 @@ app = Client(
 
 LIST = {}
 
-tz = pytz.timezone('Asia/Kolkata')
+tz = pytz.timezone("Asia/Kolkata")
 
 #currentTime = datetime.datetime.now()
-now = datetime.now()
-currentTime = now.astimezone(tz)
+currentTime = datetime.now(tz)
 
 if currentTime.hour < 12:
 	wish = "Good morning"
