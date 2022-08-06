@@ -5,6 +5,7 @@ import asyncio
 import string
 import random
 import shutil
+import pytz
 from PyPDF2 import PdfReader
 from PIL import Image
 import requests
@@ -36,9 +37,10 @@ app = Client(
 
 LIST = {}
 
-#os.environ['TZ'] = "Kolkata"
+tz = pytz.timezone('Kolkata/Asia')
 
-currentTime = datetime.datetime.now()
+#currentTime = datetime.datetime.now()
+currentTime = tz.datetime.now()
 
 if currentTime.hour < 12:
 	wish = "Good morning"
