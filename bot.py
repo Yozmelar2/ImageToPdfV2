@@ -37,7 +37,7 @@ app = Client(
 
 LIST = {}
 
-tz = pytz.timezone('Kolkata/Asia')
+tz = pytz.timezone('Asia/Kolkata')
 
 #currentTime = datetime.datetime.now()
 currentTime = tz.datetime.now()
