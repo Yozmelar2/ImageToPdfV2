@@ -42,7 +42,6 @@ tz = pytz.timezone("Asia/Kolkata")
 
 #currentTime = datetime.datetime.now()
 currentTime = datetime.now(tz)
-print(currentTime)
 
 if currentTime.hour < 12:
 	wish = "Good morning..."
@@ -55,6 +54,7 @@ else:
 @app.on_message(filters.command(['start', 'help']))
 async def start(client, message):
  #await client.send_message(LOG_CHANNEL, f"**New User Joined:** \n\nUser [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started Bot!!")
+ print(currentTime)
  await message.reply_text(text=f"""{wish}
 Hello [{message.from_user.first_name }](tg://user?id={message.from_user.id})
 
