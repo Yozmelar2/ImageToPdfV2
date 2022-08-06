@@ -42,13 +42,14 @@ tz = pytz.timezone("Asia/Kolkata")
 
 #currentTime = datetime.datetime.now()
 currentTime = datetime.now(tz)
+print(currentTime)
 
 if currentTime.hour < 12:
-	wish = "Good morning"
-elif 12 <= currentTime.hour < 18:
-	wish = 'Good afternoon.'
+	wish = "Good morning..."
+elif 12 <= currentTime.hour < 16:
+	wish = 'Good afternoon...'
 else:
-	wish = 'Good evening.'
+	wish = 'Good evening...'
 
 
 @app.on_message(filters.command(['start', 'help']))
