@@ -1,7 +1,6 @@
 import os
 import time
 import datetime
-from datetime import now
 import asyncio
 import string
 import random
@@ -41,6 +40,7 @@ LIST = {}
 tz = pytz.timezone('Asia/Kolkata')
 
 #currentTime = datetime.datetime.now()
+now = datetime.now()
 currentTime = now.astimezone(tz)
 
 if currentTime.hour < 12:
