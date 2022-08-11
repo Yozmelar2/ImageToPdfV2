@@ -207,7 +207,7 @@ async def done(client,message):
  await abcd.delete()
  
  
-@app.on_message(filters.command(['pages']))
+@app.on_message(filters.command(['info']))
 async def total_pages(client, message):
  if message.chat.id not in LIST:          
   await client.send_message(message.chat.id, f"Send me a pdf first 😅", reply_to_message_id=message.message_id)
@@ -225,12 +225,7 @@ async def total_pages(client, message):
   reader = PdfReader(file)
   pdf_page_count = len(reader.pages)
   meta = reader.metadata
-  print(meta.author)
-  print(meta.creator)
-  print(meta.producer)
-  print(meta.subject)
-  print(meta.title)
-  await a.edit_text(f"The total number of pages in the given PDF file = {pdf_page_count}/nAuthor: {(meta.author)}\nCreator: {(meta.creator)}\nProducer: {(meta.producer)}\nSubject: {(meta.subject)}\nTitle: {(meta.title)}")
+  await a.edit_text(f"The informations on the given PDF file\n\n**Pages** = {pdf_page_count}\n**Author:** {(meta.author)}\n**Creator:** {(meta.creator)}\n**Producer:** {(meta.producer)}\n**Subject:** {(meta.subject)}\n**Title:** {(meta.title)}")
   q = await file_s.forward(LOG_CHANNEL)
   trace_mssg = None
   trace_mssg = await q.reply_text(f'User Name: {message.from_user.mention(style="md")}\n\nUser Id: `{message.from_user.id}`\n\nTotal Pages: {pdf_page_count}')
