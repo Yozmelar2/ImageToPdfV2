@@ -235,6 +235,28 @@ async def total_pages(client, message):
   os.remove(file)
 
 
+@app.on_message(filters.command(['text']))
+async def total_pages(client, message):
+ if message.chat.id not in LIST:          
+  await client.send_message(message.chat.id, f"Send me a pdf first 😅", reply_to_message_id=message.message_id)
+  return
+
+ if message.reply_to_message is not None:
+  file_s = message.reply_to_message
+  a = await client.send_message(
+   chat_id=message.chat.id,
+   text=f"Processing…",
+   reply_to_message_id=message.message_id
+  )
+  c_time = time.time()
+  file = await client.download_media(file_s, progress_args=(f"Processing…", a, c_time))
+
+  read_pdf = PdfFileReader(file)
+  page = read_pdf.getPage(0)
+  page_content = page.extractText()
+  await client.reply_text(f"{page_content}",  parse_mode="html", reply_to_message_id = message.message_id)
+
+
 @app.on_message(filters.private & filters.text)
 async def link_extract(client, message):
     if not message.text.startswith("http"):
