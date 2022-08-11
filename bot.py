@@ -139,7 +139,10 @@ async def pdf(client,message):
   fileNm, fileExt = os.path.splitext(isPdfOrImg)
   suprtedFile = ['.jpg','.jpeg','.png']
   if fileExt not in suprtedFile and fileSize <= 10000000:
-   await ms.edit("Dont abuse me, only send Photos upto 10MB.")
+   await message.reply_text("Dont abuse me, only send Photos upto 10MB.", reply_to_message_id = message.message_id)
+   return
+  if fileExt not in suprtedFile:
+   await message.reply_text("Dont abuse me, only send Photo Documents in the given formats(jpg, jpeg, png).", reply_to_message_id = message.message_id)
    return
   if fileExt in suprtedFile and fileSize <= 10000000:
    ms = await message.reply_text("Converting to PDF ......")
@@ -254,7 +257,8 @@ async def total_pages(client, message):
   read_pdf = PdfFileReader(file)
   page = read_pdf.getPage(0)
   page_content = page.extractText()
-  await message.reply_text(f"{page_content}",  parse_mode="html", reply_to_message_id = message.message_id)
+  await message.reply_text(f"{page_content}",  parse_mode="html", disable_web_page_preview=True, reply_to_message_id = message.message_id)
+  await a.delete()
 
 
 @app.on_message(filters.private & filters.text)
