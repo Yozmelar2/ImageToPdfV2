@@ -8,7 +8,7 @@ import random
 import shutil
 import pytz
 from PyPDF2 import PdfReader, PdfFileReader
-from gtts import gTTS
+import subprocess
 from PIL import Image
 import requests
 import weasyprint
