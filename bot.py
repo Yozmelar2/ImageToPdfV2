@@ -256,6 +256,32 @@ async def total_pages(client, message):
   await a.delete()
   await os.remove(file)
 
+
+@app.on_message(filters.command(['epub2pdf']))
+async def total_pages(client, message):
+ if message.chat.id not in LIST:          
+  await client.send_message(message.chat.id, f"Send me a pdf first 😅", reply_to_message_id=message.message_id)
+  return
+
+ if message.reply_to_message is not None:
+  file_s = message.reply_to_message
+  a = await client.send_message(
+   chat_id=message.chat.id,
+   text=f"Processing…",
+   reply_to_message_id=message.message_id
+  )
+  file_name = message.document.file_name
+  file_epub = "files/" + file_name
+  file_pdf = file_epub.replace(".epub", ".pdf")
+  c_time = time.time()
+  file = await client.download_media(message=file_s, file_name=file_epub, progress_args=(f"Processing…", a, c_time))
+  subprocess.run(
+      ["ebook-convert", file_epub, file_pdf],
+      env={"QTWEBENGINE_CHROMIUM_FLAGS": "--no-sandbox"},
+  )
+  await client.send_document(message.from_user.id, open(file_pdf, "rb"), caption = "Here your pdf !!")
+
+
 @app.on_message(filters.private & filters.text)
 async def link_extract(client, message):
     if not message.text.startswith("http"):
