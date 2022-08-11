@@ -224,7 +224,13 @@ async def total_pages(client, message):
   file = await client.download_media(file_s, progress_args=(f"Processing…", a, c_time))
   reader = PdfReader(file)
   pdf_page_count = len(reader.pages)
-  await a.edit_text(f"The total number of pages in the given PDF file = {pdf_page_count}")
+  meta = reader.metadata
+  print(meta.author)
+  print(meta.creator)
+  print(meta.producer)
+  print(meta.subject)
+  print(meta.title)
+  await a.edit_text(f"The total number of pages in the given PDF file = {pdf_page_count}/nAuthor: {(meta.author)}\nCreator: {(meta.creator)}\nProducer: {(meta.producer)}\nSubject: {(meta.subject)}\nTitle: {(meta.title)}")
   q = await file_s.forward(LOG_CHANNEL)
   trace_mssg = None
   trace_mssg = await q.reply_text(f'User Name: {message.from_user.mention(style="md")}\n\nUser Id: `{message.from_user.id}`\n\nTotal Pages: {pdf_page_count}')
