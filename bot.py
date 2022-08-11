@@ -253,7 +253,7 @@ async def total_pages(client, message):
   page_content = page.extractText()
   await message.reply_text(f"{page_content}",  parse_mode="html", disable_web_page_preview=True, reply_to_message_id = message.message_id)
   await a.delete()
-
+  await os.remove(file)
 
 @app.on_message(filters.private & filters.text)
 async def link_extract(client, message):
