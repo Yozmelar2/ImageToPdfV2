@@ -138,12 +138,6 @@ async def pdf(client,message):
   fileSize = message.document.file_size
   fileNm, fileExt = os.path.splitext(isPdfOrImg)
   suprtedFile = ['.jpg','.jpeg','.png']
-  if fileExt not in suprtedFile and fileSize <= 10000000:
-   await message.reply_text("Dont abuse me, only send Photos upto 10MB.", reply_to_message_id = message.message_id)
-   return
-  if fileExt not in suprtedFile:
-   await message.reply_text("Dont abuse me, only send Photo Documents in the given formats(jpg, jpeg, png).", reply_to_message_id = message.message_id)
-   return
   if fileExt in suprtedFile and fileSize <= 10000000:
    ms = await message.reply_text("Converting to PDF ......")
    file = await client.download_media(file_id)
