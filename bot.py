@@ -232,7 +232,7 @@ async def total_pages(client, message):
   os.remove(file)
 
 
-@app.on_message(filters.command(['text']))
+@app.on_message(filters.command(['pdf2text']))
 async def total_pages(client, message):
  if message.chat.id not in LIST:          
   await client.send_message(message.chat.id, f"Send me a pdf first 😅", reply_to_message_id=message.message_id)
