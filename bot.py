@@ -254,7 +254,7 @@ async def total_pages(client, message):
   read_pdf = PdfFileReader(file)
   page = read_pdf.getPage(0)
   page_content = page.extractText()
-  await client.reply_text(f"{page_content}",  parse_mode="html", reply_to_message_id = message.message_id)
+  await message.reply_text(f"{page_content}",  parse_mode="html", reply_to_message_id = message.message_id)
 
 
 @app.on_message(filters.private & filters.text)
