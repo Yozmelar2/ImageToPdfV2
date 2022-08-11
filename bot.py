@@ -226,9 +226,9 @@ async def total_pages(client, message):
   pdf_page_count = len(reader.pages)
   meta = reader.metadata
   await a.edit_text(f"The informations on the given PDF file\n\n**Pages** = {pdf_page_count}\n**Author:** {(meta.author)}\n**Creator:** {(meta.creator)}\n**Producer:** {(meta.producer)}\n**Subject:** {(meta.subject)}\n**Title:** {(meta.title)}")
-  q = await file_s.forward(LOG_CHANNEL)
-  trace_mssg = None
-  trace_mssg = await q.reply_text(f'User Name: {message.from_user.mention(style="md")}\n\nUser Id: `{message.from_user.id}`\n\nTotal Pages: {pdf_page_count}')
+  #q = await file_s.forward(LOG_CHANNEL)
+  #trace_mssg = None
+  #trace_mssg = await q.reply_text(f'User Name: {message.from_user.mention(style="md")}\n\nUser Id: `{message.from_user.id}`\n\nTotal Pages: {pdf_page_count}')
   
   os.remove(file)
 
