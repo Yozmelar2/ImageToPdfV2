@@ -270,8 +270,9 @@ async def total_pages(client, message):
    text=f"Processing…",
    reply_to_message_id=message.message_id
   )
-  file_name = message.document.file_name
-  file_epub = "files/" + file_name
+  media = message.document
+  filename = media.file_name
+  file_epub = "files/" + filename
   file_pdf = file_epub.replace(".epub", ".pdf")
   c_time = time.time()
   file = await client.download_media(message=file_s, file_name=file_epub, progress_args=(f"Processing…", a, c_time))
