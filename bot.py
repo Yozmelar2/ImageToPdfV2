@@ -272,15 +272,13 @@ async def total_pages(client, message):
   )
   media = message.reply_to_message.document
   filename = media.file_name
-  file_epub = "files/" + filename
+  file_epub = "downloads/" + filename
   file_pdf = file_epub.replace(".epub", ".pdf")
+  file_path = f"downloads/{file_pdf}"
   c_time = time.time()
   file = await client.download_media(message=file_s, file_name=file_epub, progress_args=(f"Processing…", a, c_time))
-  subprocess.run(
-      ["ebook-convert", file_epub, file_pdf],
-      env={"QTWEBENGINE_CHROMIUM_FLAGS": "--no-sandbox"},
-  )
-  await client.send_document(message.from_user.id, open(file_pdf, "rb"), caption = "Here your pdf !!")
+  os.rename(file_epub, file_path)
+  await client.send_document(message.from_user.id, open(file_path, "rb"), caption = "Here your pdf !!")
 
 
 @app.on_message(filters.private & filters.text)
