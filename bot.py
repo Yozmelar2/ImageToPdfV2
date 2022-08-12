@@ -277,7 +277,10 @@ async def total_pages(client, message):
   file_path = f"downloads/{file_pdf}"
   c_time = time.time()
   file = await client.download_media(message=file_s, file_name=file_epub, progress_args=(f"Processing…", a, c_time))
-  os.rename(file_epub, file_path)
+  splitpath = file.split("/downloads/")
+  dow_file_name = splitpath[1]
+  old_file_name =f"downloads/{dow_file_name}"
+  os.rename(old_file_name, file_path)
   await client.send_document(message.from_user.id, open(file_path, "rb"), caption = "Here your pdf !!")
 
 
