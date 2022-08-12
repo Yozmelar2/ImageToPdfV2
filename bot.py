@@ -270,7 +270,7 @@ async def total_pages(client, message):
    text=f"Processing…",
    reply_to_message_id=message.message_id
   )
-  media = message.document
+  media = message.reply_to_message.document
   filename = media.file_name
   file_epub = "files/" + filename
   file_pdf = file_epub.replace(".epub", ".pdf")
