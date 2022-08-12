@@ -8,7 +8,6 @@ import random
 import shutil
 import pytz
 from PyPDF2 import PdfReader, PdfFileReader
-import subprocess
 from PIL import Image
 import requests
 import weasyprint
@@ -255,29 +254,6 @@ async def total_pages(client, message):
   await message.reply_text(f"{page_content}",  parse_mode="html", disable_web_page_preview=True, reply_to_message_id = message.message_id)
   await a.delete()
   await os.remove(file)
-
-
-@app.on_message(filters.command(['epub2pdf']))
-async def total_pages(client, message):
- if message.chat.id not in LIST:          
-  await client.send_message(message.chat.id, f"Send me a pdf first 😅", reply_to_message_id=message.message_id)
-  return
-
- if message.reply_to_message is not None:
-  file_s = message.reply_to_message
-  a = await client.send_message(
-   chat_id=message.chat.id,
-   text=f"Processing…",
-   reply_to_message_id=message.message_id
-  )
-  media = message.reply_to_message.document
-  filename = media.file_name
-  file_epub = "downloads/" + filename
-  file_pdf = file_epub.replace(".epub", ".pdf")
-  c_time = time.time()
-  file = await client.download_media(message=file_s, file_name=file_epub, progress_args=(f"Processing…", a, c_time))
-  os.rename(file_epub, file_pdf)
-  await client.send_document(message.from_user.id, open(file_pdf, "rb"), caption = "Here your pdf !!")
 
 
 @app.on_message(filters.private & filters.text)
