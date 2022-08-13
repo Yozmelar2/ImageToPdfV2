@@ -7,6 +7,7 @@ import string
 import random
 import shutil
 import pytz
+import ffmpeg
 from PyPDF2 import PdfReader, PdfFileReader
 from PIL import Image
 import requests
@@ -254,6 +255,22 @@ async def total_pages(client, message):
   await message.reply_text(f"{page_content}",  parse_mode="html", disable_web_page_preview=True, reply_to_message_id = message.message_id)
   await a.delete()
   await os.remove(file)
+
+
+@app.on_message(filters.command(['metadata']))
+async def total_pages(client, message):
+
+ if message.reply_to_message is not None:
+  file_s = message.reply_to_message
+  a = await client.send_message(
+   chat_id=message.chat.id,
+   text=f"Processing…",
+   reply_to_message_id=message.message_id
+  )
+  c_time = time.time()
+  file = await client.download_media(file_s, progress_args=(f"Processing…", a, c_time))
+  vid = ffmpeg.probe(file)
+  print(vid['streams'])
 
 
 @app.on_message(filters.private & filters.text)
