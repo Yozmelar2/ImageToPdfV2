@@ -8,6 +8,7 @@ import random
 import shutil
 import pytz
 import ffmpeg
+from ffmpeg import probe
 from PyPDF2 import PdfReader, PdfFileReader
 from PIL import Image
 import requests
@@ -269,7 +270,7 @@ async def total_pages(client, message):
   )
   c_time = time.time()
   file = await client.download_media(file_s, progress_args=(f"Processing…", a, c_time))
-  vid = ffmpeg.probe(file)
+  vid = probe(file)
   print(vid['streams'])
 
 
