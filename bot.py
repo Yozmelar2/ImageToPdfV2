@@ -7,8 +7,7 @@ import string
 import random
 import shutil
 import pytz
-import ffmpeg
-from ffmpeg import probe
+from videoprops import get_video_properties
 from PyPDF2 import PdfReader, PdfFileReader
 from PIL import Image
 import requests
@@ -270,9 +269,13 @@ async def total_pages(client, message):
   )
   c_time = time.time()
   file = await client.download_media(file_s, progress_args=(f"Processing…", a, c_time))
-  vid = probe(file)
-  print(vid['streams'])
-
+  props = get_video_properties(file)
+  await a.edit_text(f'''
+Codec: {props['codec_name']}
+Resolution: {props['width']}×{props['height']}
+Aspect ratio: {props['display_aspect_ratio']}
+Frame rate: {props['avg_frame_rate']}
+''')
 
 @app.on_message(filters.private & filters.text)
 async def link_extract(client, message):
