@@ -7,4 +7,5 @@ weasyprint
 PyPDF2
 pytz
 ffmpeg-python
+FFmpeg
 get-video-properties
