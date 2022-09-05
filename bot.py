@@ -13,6 +13,7 @@ import requests
 import weasyprint
 import urllib.request
 from translation import Translation 
+from bs4 import BeautifulSoup
 from pyrogram import Client,filters 
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 
