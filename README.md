@@ -43,8 +43,6 @@
 
 ## ToDo
 
-* Custom file name
-
 * Database
 
 ### Deploy to Heroku
