@@ -6,4 +6,4 @@ class Translation(object):
     UPLOAD_TXT = "<b>Uploading your file..</b>"
     ERROR_TXT = "<b>URL Error</b>\n\n<i>Unable to create a Pdf with this URL.\nTry again with a valid one..</i>"
     CAPTION_TXT = "{}\n\n© @NewBotz"
-    THUMB_URL = "https://telegra.ph/file/f983772ef263293351b55.jpg"
+    THUMB_URL = ""
