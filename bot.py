@@ -7,14 +7,12 @@ import string
 import random
 import shutil
 import pytz
-from videoprops import get_video_properties
 from PyPDF2 import PdfReader, PdfFileReader
 from PIL import Image
 import requests
 import weasyprint
 import urllib.request
 from translation import Translation 
-from bs4 import BeautifulSoup
 from pyrogram import Client,filters 
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 
@@ -256,26 +254,6 @@ async def total_pages(client, message):
   await a.delete()
   await os.remove(file)
 
-
-@app.on_message(filters.command(['metadata']))
-async def total_pages(client, message):
-
- if message.reply_to_message is not None:
-  file_s = message.reply_to_message
-  a = await client.send_message(
-   chat_id=message.chat.id,
-   text=f"Processing…",
-   reply_to_message_id=message.message_id
-  )
-  c_time = time.time()
-  file = await client.download_media(file_s, progress_args=(f"Processing…", a, c_time))
-  props = get_video_properties(file)
-  await a.edit_text(f'''
-Codec: {props['codec_name']}
-Resolution: {props['width']}×{props['height']}
-Aspect ratio: {props['display_aspect_ratio']}
-Frame rate: {props['avg_frame_rate']}
-''')
 
 @app.on_message(filters.private & filters.text)
 async def link_extract(client, message):
