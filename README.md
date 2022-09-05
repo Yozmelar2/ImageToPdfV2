@@ -11,7 +11,7 @@
 
 > Get information from pdf
 
-> Count Total Pages from pdf
+> Convert Pdf to text message 
 
 
 ## Configs
