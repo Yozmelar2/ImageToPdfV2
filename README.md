@@ -5,7 +5,11 @@
 
 > Convert Images to Pdf
 
+> Convert Document to Pdf
+
 > Convert Webpage to Pdf 
+
+> Get information from pdf
 
 > Count Total Pages from pdf
 
@@ -17,10 +21,6 @@
 * `API_ID`     - From my.telegram.org 
 
 * `API_HASH`    - From my.telegram.org
-
-* `UPDATE _CHANNEL`  - Channel Username for Force Subscribe
-
-* `LOG_CHANNEL`  - Channel/Group ID for dumb bot datas
 
 
 ## Bot Commands
@@ -35,7 +35,11 @@
 
 * /convert - Convert Photos to PDF
 
-* /pages - Reply to any pdf file to get total pages
+* /cancel - Cancel your photos from Que
+
+* /info - Reply to any pdf file to get information 
+
+* /pdf2text - Convert pdf to text message 
 
 ## ToDo
 
