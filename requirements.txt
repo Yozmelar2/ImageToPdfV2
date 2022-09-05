@@ -1,11 +1,7 @@
 TgCrypto
 Pillow
 pyrogram==1.4.8
-bs4
 requests
 weasyprint
 PyPDF2
 pytz
-ffmpeg-python
-FFmpeg
-get-video-properties
