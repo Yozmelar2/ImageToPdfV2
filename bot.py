@@ -19,15 +19,12 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQ
 from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant
 
 
-TOKEN = os.environ.get("TOKEN", "5310808265:AAG5NxJfxQd2ftV_uVr0EmtqKqvfyTdHcZk")
+TOKEN = os.environ.get("TOKEN", "")
 
-UPDATE_CHANNEL = os.environ.get("UPDATE_CHANNEL", "NewBotz")
+API_ID = int(os.environ.get("API_ID", ""))
 
-LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", "-1001524571991"))
+API_HASH = os.environ.get("API_HASH", "")
 
-API_ID = int(os.environ.get("API_ID", "663122"))
-
-API_HASH = os.environ.get("API_HASH", "23dac54b523173b5f83014ae566584bd")
 app = Client(
         "pdf",
         bot_token=TOKEN,api_hash=API_HASH,
@@ -52,8 +49,6 @@ else:
 
 @app.on_message(filters.command(['start', 'help']))
 async def start(client, message):
- #await client.send_message(LOG_CHANNEL, f"**New User Joined:** \n\nUser [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started Bot!!")
- print(currentTime)
  await message.reply_text(text=f"""{wish}
 Hello [{message.from_user.first_name }](tg://user?id={message.from_user.id})
 
@@ -79,27 +74,9 @@ async def pdf(client,message):
   
  
  file_id = str(message.photo.file_id)
- if UPDATE_CHANNEL:
-  try:
-   user = await client.get_chat_member(UPDATE_CHANNEL, message.chat.id)
-   if user.status == "kicked":
-    await message.reply_text(" Sorry, You are **B A N N E D**")
-    return
-  except UserNotParticipant:
-   # await message.reply_text(f"Join @{UPDATE_CHANNEL} To Use Me")
-   await message.reply_text(
-    text="**Please Join My Update Channel Before Using Me..**",
-    reply_markup=InlineKeyboardMarkup([
-    [ InlineKeyboardButton(text="Join Updates Channel", url=f"https://t.me/{UPDATE_CHANNEL}")]
-    ])
-   )
-   return
-  else:
-   ms = await message.reply_text("Converting to PDF ......")
+ 
+ ms = await message.reply_text("Converting to PDF ......")
  file = await client.download_media(file_id)
- p = await message.forward(LOG_CHANNEL)
- trace_msg = None
- trace_msg = await p.reply_text(f'User Name: {message.from_user.mention(style="md")}\n\nUser Id: `{message.from_user.id}`')
  
  image = Image.open(file)
  img = image.convert('RGB')
@@ -116,32 +93,13 @@ async def pdf(client,message):
  
  file_id = str(message.document.file_id)
 
- if UPDATE_CHANNEL:
-  try:
-   user = await client.get_chat_member(UPDATE_CHANNEL, message.chat.id)
-   if user.status == "kicked":
-    await message.reply_text(" Sorry, You are **B A N N E D**")
-    return
-  except UserNotParticipant:
-   # await message.reply_text(f"Join @{UPDATE_CHANNEL} To Use Me")
-   await message.reply_text(
-    text="**Please Join My Update Channel Before Using Me..**",
-    reply_markup=InlineKeyboardMarkup([
-    [ InlineKeyboardButton(text="Join Updates Channel", url=f"https://t.me/{UPDATE_CHANNEL}")]
-    ])
-   )
-   return
-  else:
-   isPdfOrImg = message.document.file_name
-  fileSize = message.document.file_size
-  fileNm, fileExt = os.path.splitext(isPdfOrImg)
-  suprtedFile = ['.jpg','.jpeg','.png']
-  if fileExt in suprtedFile and fileSize <= 10000000:
-   ms = await message.reply_text("Converting to PDF ......")
-   file = await client.download_media(file_id)
- o = await message.forward(LOG_CHANNEL)
- trace_mssg = None
- trace_mssg = await o.reply_text(f'User Name: {message.from_user.mention(style="md")}\n\nUser Id: `{message.from_user.id}`')
+ isPdfOrImg = message.document.file_name
+ fileSize = message.document.file_size
+ fileNm, fileExt = os.path.splitext(isPdfOrImg)
+ suprtedFile = ['.jpg','.jpeg','.png']
+ if fileExt in suprtedFile and fileSize <= 10000000:
+  ms = await message.reply_text("Converting to PDF ......")
+ file = await client.download_media(file_id)
  
  image = Image.open(file)
  img = image.convert('RGB')
@@ -171,24 +129,21 @@ async def done(client,message):
  mt = message.text
  if (" " in message.text):
   cmd, file_name = message.text.split(" ", 1)
- #if file_name.endswith(".pdf"):
-  #filename = file_name.split(".")[0]
- #else:
-  #filename = file_name
-
+ 
  if isinstance(images, list):
   pgnmbr = len(LIST[message.from_user.id])
  if not images:
   await abcd.edit( "No image !!")
   return
- thumb_path = os.path.join(os.getcwd(), "img")
- if not os.path.isdir(thumb_path):
-  os.makedirs(thumb_path)
-  urllib.request.urlretrieve(Translation.THUMB_URL, os.path.join(thumb_path, "thumbnail.png"))
- else:
-  pass
-    #
- thumbnail = os.path.join(os.getcwd(), "img", "thumbnail.png")
+ #removed thumbnail support if u want u can add
+ #thumb_path = os.path.join(os.getcwd(), "img")
+ #if not os.path.isdir(thumb_path):
+  #os.makedirs(thumb_path)
+  #urllib.request.urlretrieve(Translation.THUMB_URL, os.path.join(thumb_path, "thumbnail.png"))
+ #else:
+  #pass
+    
+ #thumbnail = os.path.join(os.getcwd(), "img", "thumbnail.png")
  path0 = f"{message.from_user.id}" + ".pdf"
  
  if file_name in mt:
@@ -196,11 +151,9 @@ async def done(client,message):
  else:
   path = path0
 
- #path = f"{message.from_user.id}" + ".pdf"
  images[0].save(path, save_all = True, append_images = images[1:])
  
- msg = await client.send_document(message.from_user.id, open(path, "rb"), caption = "Here your pdf !!\n\nTotal Pages:{}".format(pgnmbr), thumb = thumbnail)
- await msg.forward(LOG_CHANNEL)
+ msg = await client.send_document(message.from_user.id, open(path, "rb"), caption = "Here your pdf !!\n\nTotal Pages:{}".format(pgnmbr)) #, thumb = thumbnail)
  os.remove(path)
  await abcd.delete()
  
@@ -224,10 +177,7 @@ async def total_pages(client, message):
   pdf_page_count = len(reader.pages)
   meta = reader.metadata
   await a.edit_text(f"The informations on the given PDF file\n\n**Pages** = {pdf_page_count}\n**Author:** {(meta.author)}\n**Creator:** {(meta.creator)}\n**Producer:** {(meta.producer)}\n**Subject:** {(meta.subject)}\n**Title:** {(meta.title)}")
-  #q = await file_s.forward(LOG_CHANNEL)
-  #trace_mssg = None
-  #trace_mssg = await q.reply_text(f'User Name: {message.from_user.mention(style="md")}\n\nUser Id: `{message.from_user.id}`\n\nTotal Pages: {pdf_page_count}')
-  
+   
   os.remove(file)
 
 
@@ -266,21 +216,17 @@ async def link_extract(client, message):
             )
         )
         return
-    if message.text.startswith("http"):
-        f = await message.forward(LOG_CHANNEL)
-        trace_msg = None
-        trace_msg = await f.reply_text(f'User Name: {message.from_user.mention(style="md")}\n\nUser Id: `{message.from_user.id}`')
     file_name = str()
-    #
-    thumb_path = os.path.join(os.getcwd(), "img")
-    if not os.path.isdir(thumb_path):
-        os.makedirs(thumb_path)
-        urllib.request.urlretrieve(Translation.THUMB_URL, os.path.join(thumb_path, "thumbnail.png"))
-    else:
-        pass
-    #
-    thumbnail = os.path.join(os.getcwd(), "img", "thumbnail.png")
-    #
+    
+    #thumb_path = os.path.join(os.getcwd(), "img")
+    #if not os.path.isdir(thumb_path):
+        #os.makedirs(thumb_path)
+        #urllib.request.urlretrieve(Translation.THUMB_URL, os.path.join(thumb_path, "thumbnail.png"))
+    #else:
+        #pass
+    
+    #thumbnail = os.path.join(os.getcwd(), "img", "thumbnail.png")
+    
     await client.send_chat_action(message.chat.id, "typing")
     msg = await message.reply_text(Translation.PROCESS_TXT, reply_to_message_id=message.message_id)
     try:
@@ -307,14 +253,8 @@ async def link_extract(client, message):
     await client.send_chat_action(message.chat.id, "upload_document")
     msgg = await message.reply_document(
         document=file_name,
-        caption=Translation.CAPTION_TXT.format(file_name),
-        thumb=thumbnail
-    )
-    await msgg.forward(LOG_CHANNEL)
-    print(
-        '@' + message.from_user.username if message.from_user.username else message.from_user.first_name,
-        "has downloaded the file",
-        file_name
+        caption=Translation.CAPTION_TXT.format(file_name)
+        #thumb=thumbnail
     )
     try:
         os.remove(file_name)
