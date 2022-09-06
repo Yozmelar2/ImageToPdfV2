@@ -53,7 +53,7 @@ async def start(client, message):
  await message.reply_text(text=f"""{wish}
 Hello [{message.from_user.first_name }](tg://user?id={message.from_user.id})
 
-i can convert images to pdf and more… \nNow you can convert your pdf with custom file(eg:-/convert filename)""", reply_to_message_id = message.message_id, reply_markup=InlineKeyboardMarkup(
+i can convert images to pdf and more…""", reply_to_message_id = message.message_id, reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton("Support Group", url="https://t.me/NewBotzSupport"),
@@ -127,9 +127,6 @@ async def cancel(client, message):
 async def done(client,message):
  images = LIST.get(message.from_user.id)
  abcd = await message.reply_text( "Uploading your PDF")
- mt = message.text
- if (" " in message.text):
-  cmd, file_name = message.text.split(" ", 1)
  
  if isinstance(images, list):
   pgnmbr = len(LIST[message.from_user.id])
@@ -145,12 +142,7 @@ async def done(client,message):
   #pass
     
  #thumbnail = os.path.join(os.getcwd(), "img", "thumbnail.png")
- path0 = f"{message.from_user.id}" + ".pdf"
- 
- if file_name in mt:
-  path = f"{filename}" + ".pdf"
- else:
-  path = path0
+ path = f"{message.from_user.id}" + ".pdf"
 
  images[0].save(path, save_all = True, append_images = images[1:])
  
