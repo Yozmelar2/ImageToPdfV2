@@ -7,7 +7,7 @@ import string
 import random
 import shutil
 import pytz
-from PyPDF2 import PdfReader, PdfFileReader
+from PyPDF2 import PdfReader, PdfFileReader, PdfWriter
 from PIL import Image
 import requests
 import weasyprint
@@ -150,7 +150,38 @@ async def done(client,message):
  os.remove(path)
  await abcd.delete()
  
- 
+
+@app.on_message(filters.command(['info']))
+async def total_pages(client, message):
+ if message.chat.id not in LIST:          
+  await client.send_message(message.chat.id, f"Send me a pdf first 😅", reply_to_message_id=message.message_id)
+  return
+
+ if message.reply_to_message is not None:
+  file_s = message.reply_to_message
+  a = await client.send_message(
+   chat_id=message.chat.id,
+   text=f"Processing…",
+   reply_to_message_id=message.message_id
+  )
+  c_time = time.time()
+  file = await client.download_media(file_s, progress_args=(f"Processing…", a, c_time))
+  
+  reader = PdfReader(file)
+  writer = PdfWriter()
+
+  for page in reader.pages:
+   page.compress_content_streams()  # This is CPU intensive!
+   writer.add_page(page)
+
+  with open("out.pdf", "wb") as f:
+   writer.write(f)
+
+ msg = await client.send_document(message.from_user.id, page) #open(path, "rb"), caption = "Here your pdf !!\n\nTotal Pages:{}".format(pgnmbr)) #, thumb = thumbnail)
+ await abcd.delete()
+ os.remove(file)
+
+
 @app.on_message(filters.command(['info']))
 async def total_pages(client, message):
  if message.chat.id not in LIST:          
