@@ -151,8 +151,8 @@ async def done(client,message):
  await abcd.delete()
  
 
-@app.on_message(filters.command(['info']))
-async def total_pages(client, message):
+@app.on_message(filters.command(['compress']))
+async def compress_pdf(client, message):
  if message.chat.id not in LIST:          
   await client.send_message(message.chat.id, f"Send me a pdf first 😅", reply_to_message_id=message.message_id)
   return
@@ -183,7 +183,7 @@ async def total_pages(client, message):
 
 
 @app.on_message(filters.command(['info']))
-async def total_pages(client, message):
+async def pdf_info(client, message):
  if message.chat.id not in LIST:          
   await client.send_message(message.chat.id, f"Send me a pdf first 😅", reply_to_message_id=message.message_id)
   return
@@ -206,7 +206,7 @@ async def total_pages(client, message):
 
 
 @app.on_message(filters.command(['pdf2text']))
-async def total_pages(client, message):
+async def pdftotext(client, message):
  if message.chat.id not in LIST:          
   await client.send_message(message.chat.id, f"Send me a pdf first 😅", reply_to_message_id=message.message_id)
   return
