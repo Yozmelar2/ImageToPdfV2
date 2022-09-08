@@ -174,12 +174,12 @@ async def compress_pdf(client, message):
    page.compress_content_streams()  # This is CPU intensive!
    writer.add_page(page)
 
-  with open("out.pdf", "wb") as f:
-   writer.write(f)
+   with open("out.pdf", "wb") as f:
+    writer.write(f)
 
- msg = await client.send_document(message.from_user.id, f) #open(path, "rb"), caption = "Here your pdf !!\n\nTotal Pages:{}".format(pgnmbr)) #, thumb = thumbnail)
- await abcd.delete()
- os.remove(file)
+  msg = await client.send_document(message.from_user.id, page) #open(path, "rb"), caption = "Here your pdf !!\n\nTotal Pages:{}".format(pgnmbr)) #, thumb = thumbnail)
+  await abcd.delete()
+  os.remove(file)
 
 
 @app.on_message(filters.command(['info']))
