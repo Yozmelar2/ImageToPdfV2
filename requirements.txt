@@ -6,3 +6,5 @@ bs4
 weasyprint
 PyPDF2
 pytz
+humanize
+PDFNetPython3==8.1.0
