@@ -20,11 +20,11 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQ
 from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant
 
 
-TOKEN = os.environ.get("TOKEN", "5310808265:AAG5NxJfxQd2ftV_uVr0EmtqKqvfyTdHcZk")
+TOKEN = os.environ.get("TOKEN", "5752725687:AAH-IgljX7Jtqfb7pl6CyooMhjVD14ib0BQ")
 
-API_ID = int(os.environ.get("API_ID", "663122"))
+API_ID = int(os.environ.get("API_ID", "534493"))
 
-API_HASH = os.environ.get("API_HASH", "23dac54b523173b5f83014ae566584bd")
+API_HASH = os.environ.get("API_HASH", "ac922823455e814e44020a9f3ee17914")
 
 app = Client(
         "pdf",
